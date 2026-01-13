@@ -1,0 +1,420 @@
+  body {overflow-x:hidden;}
+  
+  /* Nutrition Calculator Styles - Webflow Theme Match */
+  /* Calculator item selection styles */
+  .menu-tile_component[data-type] {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .menu-tile_component[data-type]:hover {
+    background-color: rgba(200,200,200,0.6);
+    transform: translateY(-1px);
+  }
+  
+  .menu-tile_component[data-type].selected {
+    background-color: rgba(180,180,180,0.9) !important;
+    transform: translateY(-1px);
+  }
+  
+  .menu-tile_component[data-type].disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  .menu-tile_component[data-type].disabled:hover {
+    background-color: transparent;
+    transform: none;
+  }
+  
+  /* Keep original hover effects for non-calculator items */
+  .menu-tile_component:not([data-type]) {
+    transition: all 0.3s ease;
+  }
+  
+  .menu-tile_component.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  .step-counter {
+    background: #6b7280;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+  }
+  
+  .nutrition-summary {
+    width: 100%;
+    margin-top: 0;
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  /* Nutrition Section Styling */
+  .nutrition-details-section {
+    margin-bottom: 40px;
+  }
+  
+  .empty-selection-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+  }
+  
+  .individual-item {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+  
+  .individual-item:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  .item-type-badge {
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .item-nutrition {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    font-size: 13px;
+  }
+  
+  .item-nutrition-stat {
+    text-align: center;
+    padding: 8px;
+    background: #f9fafb;
+    border: 1px solid #f3f4f6;
+  }
+  
+  .item-nutrition-value {
+    font-weight: 600;
+    color: #111827;
+    display: block;
+  }
+  
+  .item-nutrition-label {
+    color: #6b7280;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+  
+  .nutrition-totals-section {
+    background: #f9fafb;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .nutrition-totals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Size selector styles */
+  .size-selector-section {
+    background: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .size-buttons-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .size-btn {
+    padding: 12px 16px;
+    background-color: #f8fafc;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 80px;
+    color: #475569;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .size-btn:hover {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+    color: #1e40af;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .size-btn.selected {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+  
+  .size-btn.selected:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+  }
+  
+  .total-nutrition-item {
+    text-align: center;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .total-nutrition-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    display: block;
+    line-height: 1.1;
+  }
+  
+  .total-nutrition-label {
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  
+  #order-btn-wrapper {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  #order-btn-wrapper.enabled {
+    opacity: 1 !important;
+  }
+  
+  #order-btn-wrapper.enabled:hover {
+    opacity: 0.9 !important;
+  }
+html { font-size: 1.125rem; }
+@media screen and (max-width:1920px) { html { font-size: calc(0.625rem + 0.41666666666666674vw); } }
+@media screen and (max-width:1440px) { html { font-size: calc(0.8126951092611863rem + 0.20811654526534862vw); } }
+@media screen and (max-width:479px) { html { font-size: calc(0.7494769874476988rem + 0.8368200836820083vw); } }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.wf-loading * { opacity: 0; }
+
+*[tabindex]:focus-visible,
+  input[type="file"]:focus-visible {
+   outline: 0.125rem solid #4d65ff;
+   outline-offset: 0.125rem;
+}
+
+.inherit-color * {
+    color: inherit;
+}
+
+.w-richtext > :not(div):first-child, .w-richtext > div:first-child > :first-child {
+  margin-top: 0 !important;
+}
+
+.w-richtext>:last-child, .w-richtext ol li:last-child, .w-richtext ul li:last-child {
+	margin-bottom: 0 !important;
+}
+
+.container-medium,.container-small, .container-large {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-large {
+  max-width: 80rem;
+}
+
+.container-medium {
+  max-width: 64rem;
+}
+
+.container-small {
+  max-width: 48rem;
+}
+
+/* Professional header removal */
+.page-wrapper { padding-top: 0 !important; }
+.main-wrapper { margin-top: 0 !important; padding-top: 20px !important; }
+
+/* Hide any remaining header elements */
+[class*="nav"], .nav, nav, header { display: none !important; }
+
+
+/* ========================================
+   SAFE MOBILE RESPONSIVE ENHANCEMENTS
+   Added for better mobile experience
+   Does NOT modify any existing styles
+   ======================================== */
+
+/* Tablet and Mobile (768px and below) */
+@media screen and (max-width: 768px) {
+  
+  /* Menu tiles - 2 column grid on mobile */
+  .menu-tile_grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 8px;
+  }
+  
+  /* Make tiles touch-friendly */
+  .menu-tile_component {
+    min-height: 80px !important;
+    padding: 10px 8px !important;
+  }
+  
+  /* Nutrition totals - 2 columns on mobile */
+  .nutrition-totals-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  
+  /* Individual nutrition items - responsive */
+  .item-nutrition {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+  
+  /* Size buttons - better mobile layout */
+  .size-buttons-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  
+  .size-button {
+    min-width: 60px !important;
+    padding: 10px 8px !important;
+  }
+  
+  /* Section spacing on mobile */
+  .spacer-xlarge {
+    height: 20px !important;
+  }
+  
+  .spacer-large {
+    height: 16px !important;
+  }
+}
+
+/* Small phones (480px and below) */
+@media screen and (max-width: 480px) {
+  
+  /* Single column for nutrition totals */
+  .nutrition-totals-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Stack nutrition stats in 2 columns */
+  .item-nutrition {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  /* Smaller text for space efficiency */
+  .menu-tile_name {
+    font-size: 11px !important;
+  }
+  
+  .menu-tile_symbol {
+    font-size: 18px !important;
+  }
+  
+  /* Full width buttons on small screens */
+  .total-nutrition-item {
+    padding: 12px !important;
+  }
+}
+
+/* Very small phones (380px and below) */
+@media screen and (max-width: 380px) {
+  
+  /* Single column tiles if needed */
+  .menu-tile_grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+  
+  /* Compact tiles */
+  .menu-tile_component {
+    min-height: 70px !important;
+    padding: 8px 6px !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  
+  /* Better touch feedback */
+  .menu-tile_component {
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+  }
+  
+  /* Prevent hover states on touch */
+  .menu-tile_component:hover {
+    transform: none !important;
+  }
+  
+  /* Active state for touch feedback */
+  .menu-tile_component:active {
+    transform: scale(0.98) !important;
+    opacity: 0.9 !important;
+  }
+}
+
+/* END SAFE MOBILE ENHANCEMENTS */
