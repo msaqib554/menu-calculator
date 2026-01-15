@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Integration Test</title>
+
+    <!-- 1. Load Webflow Base Styles (Essential for layout) -->
+    <link href="https://cdn.prod.website-files.com/6658eac019b1286d2f81b14c/css/chilln.webflow.shared.3cb36b042.min.css"
+        rel="stylesheet" type="text/css" />
+
+    <!-- 2. Loading CSS from GitHub -->
+    <link rel="stylesheet" href="https://msaqib554.github.io/menu-calculator/calculator_styles.css">
+
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .test-header {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .status {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-large">
+
+
+        <!-- Calculator Container -->
+        <div id="calculator-container" style="background: white; min-height: 200px;">
+            <div style="padding: 40px; text-align: center;">Loading Calculator...</div>
+        </div>
+    </div>
+
+    <!-- 3. Loading Scripts from GitHub -->
+    <script src="https://msaqib554.github.io/menu-calculator/calculator_data.js"></script>
+    <script src="https://msaqib554.github.io/menu-calculator/calculator_logic.js"></script>
+
+    <script>
+        // 4. Fetching HTML from GitHub
+        console.log('Testing GitHub Fetch...');
+
+        fetch('https://msaqib554.github.io/menu-calculator/calculator_section.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Could not fetch HTML');
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('calculator-container').innerHTML = html;
+
+                // Initialize
+                setTimeout(() => {
+                    if (typeof initializeCalculator === 'function') {
+                        initializeCalculator();
+                        console.log('✅ SUCCESS! The calculator loaded correctly.');
+                    } else {
+                        alert('⚠️ HTML loaded, but Logic JS script is missing or invalid.');
+                    }
+                }, 500);
+            })
+            .catch(error => {
+                console.error(error);
+                alert('❌ ERROR: Could not load the HTML file from GitHub. Check your repository settings.');
+            });
+    </script>
+</body>
+
+</html>
