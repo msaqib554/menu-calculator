@@ -279,7 +279,7 @@ body {
 }
 
 .container-large {
-  max-width: 100%;
+  max-width: 80rem;
 }
 
 .container-medium {
