@@ -61,18 +61,7 @@
   gtag('config', 'UA-179452390-1');
 </script>
 
-
-  
 <style>
-
-
-  /* Override Webflow scroll animations for iframe embeds */
-  [data-w-id],
-  .w-mod-js [data-w-id] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
   body {
     overflow-x: hidden;
   }
@@ -388,6 +377,39 @@
         }
 
         /* wf-loading opacity rule removed - causes invisible elements in iframe embeds */
+
+        /* Force all Webflow scroll-animated elements to be visible inside iframe.
+           Webflow's interaction engine sets inline opacity:0 and transform as initial
+           states for scroll-into-view animations. Inside an iframe, the parent page's
+           scroll doesn't trigger these animations, so elements stay invisible. */
+        .menu-tile_section,
+        .section_sticky,
+        .section_content,
+        .section_grid,
+        .menu-tile_section-grid,
+        .menu-tile_component,
+        .menu-tile_symbol,
+        .menu-tile_name,
+        .max-width-medium,
+        .text-highlight,
+        .menu-legend_wrapper,
+        .section_component,
+        .w-layout-grid,
+        .w-dyn-list,
+        .w-dyn-items,
+        .w-dyn-item,
+        [class*="spacer"],
+        h2,
+        p {
+          opacity: 1 !important;
+          visibility: visible !important;
+          transform: none !important;
+        }
+
+        /* Preserve intentional hide on modals */
+        .modal_pop-up_component {
+          opacity: 0 !important;
+        }
 
         *[tabindex]:focus-visible,
         input[type="file"]:focus-visible {
@@ -14253,6 +14275,35 @@
         orderBtnWrapper.onclick = null;
       }
     }
+  </script>
+
+  <!-- Strip Webflow scroll-animation inline styles that cause invisible elements in iframe -->
+  <script>
+    (function() {
+      function forceVisible() {
+        // Remove inline opacity:0 and transform styles set by Webflow's interaction engine
+        document.querySelectorAll('[style*="opacity: 0"], [style*="opacity:0"]').forEach(function(el) {
+          // Don't touch modals - they should stay hidden
+          if (el.classList.contains('modal_pop-up_component') || el.classList.contains('modal_pop-up_content-wrapper')) return;
+          el.style.opacity = '1';
+        });
+        // Also strip scale transforms that Webflow uses for scroll animations
+        document.querySelectorAll('.menu-tile_section, .section_sticky, .section_content, .menu-tile_section-grid, .w-dyn-list, .w-dyn-items').forEach(function(el) {
+          if (el.style.opacity === '0') el.style.opacity = '1';
+          if (el.style.transform) el.style.transform = 'none';
+        });
+      }
+      // Run immediately, on DOMContentLoaded, and after a delay (Webflow sets styles async)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', forceVisible);
+      } else {
+        forceVisible();
+      }
+      window.addEventListener('load', forceVisible);
+      setTimeout(forceVisible, 500);
+      setTimeout(forceVisible, 1500);
+      setTimeout(forceVisible, 3000);
+    })();
   </script>
 
   <!-- Auto-resize: tells parent iframe to match content height -->
