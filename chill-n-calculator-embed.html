@@ -378,37 +378,33 @@
 
         /* wf-loading opacity rule removed - causes invisible elements in iframe embeds */
 
-        /* Force all Webflow scroll-animated elements to be visible inside iframe.
-           Webflow's interaction engine sets inline opacity:0 and transform as initial
-           states for scroll-into-view animations. Inside an iframe, the parent page's
-           scroll doesn't trigger these animations, so elements stay invisible. */
+        /* Force ALL elements visible inside iframe - Webflow scroll animations
+           set inline opacity:0 that never triggers in an iframe context.
+           Using universal selector to catch everything Webflow might animate. */
+        body *:not(.modal_pop-up_component):not(.modal_pop-up_content-wrapper):not(.w-condition-invisible) {
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        /* Force sections and containers to show - override Webflow inline transforms */
         .menu-tile_section,
         .section_sticky,
         .section_content,
-        .section_grid,
         .menu-tile_section-grid,
-        .menu-tile_component,
-        .menu-tile_symbol,
-        .menu-tile_name,
-        .max-width-medium,
-        .text-highlight,
-        .menu-legend_wrapper,
-        .section_component,
-        .w-layout-grid,
         .w-dyn-list,
         .w-dyn-items,
         .w-dyn-item,
+        .max-width-medium,
+        .menu-legend_wrapper,
+        .section_component,
+        .w-layout-grid,
         [class*="spacer"],
-        h2,
-        p {
+        .border-bottom,
+        .padding-global,
+        .container-large {
           opacity: 1 !important;
           visibility: visible !important;
-          transform: none !important;
-        }
-
-        /* Preserve intentional hide on modals */
-        .modal_pop-up_component {
-          opacity: 0 !important;
+          transform: translate3d(0, 0, 0) scale3d(1, 1, 1) !important;
         }
 
         *[tabindex]:focus-visible,
@@ -14259,21 +14255,8 @@
     }
 
     function updateOrderButton() {
-      const orderBtnWrapper = document.getElementById('order-btn-wrapper');
-      const orderBtnText = document.getElementById('order-btn-text');
-
-      if (selectedItems.base) {
-        orderBtnWrapper.classList.add('enabled');
-        orderBtnText.textContent = 'Order Now';
-        orderBtnWrapper.onclick = function () {
-          alert('Order functionality will be implemented soon!\n\nYour selection:\n' +
-            JSON.stringify(selectedItems, null, 2));
-        };
-      } else {
-        orderBtnWrapper.classList.remove('enabled');
-        orderBtnText.textContent = 'Select a Base to Order';
-        orderBtnWrapper.onclick = null;
-      }
+      // Order button was removed - function kept as stub to prevent errors
+      return;
     }
   </script>
 
